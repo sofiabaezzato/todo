@@ -81,12 +81,13 @@ a {
     --first-color: #dc2626;
     --font-color: #1a1818;
     --gray-color: #3f3f3f;
-    --neutral-color: #f1f5f9;
+    --light-gray-color: #f1f1f1;
+    --neutral-color: #f7f7f7;
     --body-font: 'Montserrat', sans-serif;
     --big-font-size: 4rem;
     --h1-font-size: 1.7rem;
     --h2-font-size: 1.5rem;
-    --h3-font-size: 1.3rem;
+    --h3-font-size: 1.1rem;
     --normal-font-size: .8rem;
     --small-font-size: .7rem;
     --font-thin: 300;
@@ -125,13 +126,58 @@ main {
     height: 100%;
     margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 30px;
+    position: absolute;
+}
+
+.navbar-container {
+    position: sticky;
+    left: 0;
+    top: 0;
+    background-color: var(--light-gray-color);
+    padding: 1rem;
+    width: 300px;
+}
+
+.project-menu {
+    list-style: none;
+    margin: 1rem 0;
+    padding: 0 1rem;
+}
+
+.list-name {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .8rem;
+
+}
+
+.active-list {
+    font-weight: var(--font-medium);
+
+}
+
+.remove-project-btn {
+    display: none;
+}
+
+.remove-project-btn:hover {
+    -webkit-filter: brightness(80%);
+    
+}
+
+.list-name:hover .remove-project-btn {
+    display: block;
+}
+
+
+.main-content {
+    justify-self: center;
+    width: 50%;
+    margin: 1rem auto;
 }
 
 .todo-grid {
-    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -148,7 +194,7 @@ main {
     grid-template-columns: 50px minmax(200px, 1fr) 50px;
     grid-template-rows: minmax(24px, 1fr) minmax(0, auto) 1fr;
     width: 100%;
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid rgb(211, 211, 211);
     padding: 8px 16px 0 16px;
     gap: 6px;
 }

@@ -2,6 +2,7 @@ import './style.css';
 import { editCardCompleted, editCardUncompleted, renderCards } from './cards'
 import { Task, changeLocalStorageObject, deleteTask, getSelectedTaskIndex, isDone  } from './todos'
 import { populateModal, success } from './modal'
+import { renderProjects } from './projects';
 
 /* let date = formatRelative(subDays(new Date(), 3), new Date())
 console.log(date) */
@@ -11,6 +12,8 @@ const formBtn = document.getElementById('newFormBtn')
 const dialogPage = document.querySelector('.dialog')
 
 newTodoBtn.addEventListener('click', function() {
+    const form = document.getElementById('taskForm')
+    form.reset()
     const saveBtn = document.querySelector('.save-btn')
     saveBtn.id = ''
     openModal()
@@ -65,6 +68,7 @@ document.addEventListener('click', function(e){
 })
 
 renderCards()
+renderProjects()
 
 function openModal() {
     document.getElementById('taskForm').reset()

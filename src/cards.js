@@ -2,8 +2,10 @@ import { format, parseISO } from 'date-fns'
 
 function renderCards() {
     let tasks = JSON.parse(localStorage.getItem('tasks')) ? JSON.parse(localStorage.getItem('tasks')) : []
-
-    document.querySelector('.todo-grid').textContent = ''
+    /* document.querySelector('.todo-grid').textContent = ''
+    tasks.forEach(task => createCard(task)) */
+    const todoContainer = document.querySelector('.todo-grid') 
+    clearElement(todoContainer)
     tasks.forEach(task => createCard(task))
 }
 
@@ -101,5 +103,10 @@ function editCardUncompleted(id) {
     console.log(selectedTaskName)
 }
 
+function clearElement(element) {
+    while(element.firstChild) {
+        element.removeChild(element.firstChild)
+    }
+}
 
-export { renderCards, editCardCompleted, editCardUncompleted }
+export { renderCards, editCardCompleted, editCardUncompleted, clearElement}
