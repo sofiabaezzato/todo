@@ -12,21 +12,45 @@
         <div class="logo"><h3>TODO APP</h3></div>
     </header>
     <main>
-        <h1 class="title">Inbox</h1>
-        <section class="todo-grid">
-            <!-- <div class="todo-card">
-                <p class="task-name">todo</p>
-                <p class="task-description">This is a description</p>
-            </div> -->
+        <section class="navbar-container">
+            <div class="date-menu">
+
+            </div>
+            <h3>Projects</h3>
+            <ul class="project-menu">
+                
+            </ul>
+            <form action="" data-new-project-form>
+                <input 
+                    type="text"
+                    class="new-project"
+                    data-new-project-input
+                    placeholder="Add new project"
+                >
+            </form>
         </section>
-        <button type="button" id="newTodoBtn">Add task</button>
+        <section class="main-content">
+            <h3 class="title">Inbox</h3>
+            <section class="todo-grid">
+                <!-- <div class="todo-card">
+                    <p class="task-name">todo</p>
+                    <p class="task-description">This is a description</p>
+                </div> -->
+            </section>
+            <button type="button" id="newTodoBtn">Add task</button>
+        </section>
+
+
+       
+
+
+
 
         <dialog class="dialog">
             <div class="project-title">
                 <a href="#" id="projectTitle">Inbox</a>
                 <div class="dialog-controls">
                     <button id="closeBtn" form="taskForm" value="cancel" formmethod="dialog"><i class="fa-solid fa-xmark" ></i></button>
-                    
                 </div>
             </div>
             <div class="dialog-main">
