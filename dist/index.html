@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/223092cf53.js" crossorigin="anonymous"></script>
+    <script src="main.js" defer></script>
+    <title>Todo App</title>
+</head>
+<body>
+    <header>
+        <div class="logo"><h3>TODO APP</h3></div>
+    </header>
+    <main>
+        <h1 class="title">Inbox</h1>
+        <section class="todo-grid">
+            <!-- <div class="todo-card">
+                <p class="task-name">todo</p>
+                <p class="task-description">This is a description</p>
+            </div> -->
+        </section>
+        <button type="button" id="newTodoBtn">Add task</button>
+
+        <dialog class="dialog">
+            <div class="project-title">
+                <a href="#" id="projectTitle">Inbox</a>
+                <div class="dialog-controls">
+                    <button id="closeBtn" form="taskForm" value="cancel" formmethod="dialog"><i class="fa-solid fa-xmark" ></i></button>
+                    
+                </div>
+            </div>
+            <div class="dialog-main">
+                <form id="taskForm" method="dialog" name="taskForm">
+                    <div class="left-container">
+                        <input name="name" type="text" placeholder="Task name" id="taskName" value="">
+                        <textarea name="description" placeholder="Description" id="taskDescription"></textarea>
+                    </div>
+                    <div class="right-container">
+                        <select name="project" id="selectProject">
+                            <option value="Inbox">Inbox</option>
+                            <option value="Project 2">Project 2</option>
+                            <option value="Project 3">Project 3</option>
+                        </select>
+                        <select name="priority" id="selectPriority">
+                            <option value="urgent">Urgent</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                        <input type="date" name="date" id="datePicker">
+
+                    </div>
+                    
+                </form>
+            </div>
+            <button class="save-btn" id="newFormBtn" value="default" form="taskForm" disabled>Save</button>
+            
+            <p id="dialogMessage"></p>
+        </dialog>
+
+    </main>
+</body>
+</html>
+
