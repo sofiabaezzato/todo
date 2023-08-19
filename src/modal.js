@@ -30,6 +30,4 @@ function populateModal(index) {
     }
 }
 
-
-
 export { success, populateModal }

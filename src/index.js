@@ -1,5 +1,5 @@
 import './style.css';
-import { renderCards } from './cards'
+import { editCardCompleted, editCardUncompleted, renderCards } from './cards'
 import { Task, changeLocalStorageObject, deleteTask, getSelectedTaskIndex, isDone  } from './todos'
 import { populateModal, success } from './modal'
 
@@ -31,7 +31,16 @@ document.addEventListener('click', function(e){
     if (targetTask) {
         let taskIndex = getSelectedTaskIndex(targetTask.id)
         let newValue;
-        newValue = isDone(taskIndex) ? false : true;
+
+        console.log('done: ' + isDone(taskIndex))
+        if (isDone(taskIndex)) {
+            editCardUncompleted(targetTask.id)
+            newValue = false
+        } else {
+            editCardCompleted(targetTask.id)
+            newValue = true
+        }
+
         changeLocalStorageObject(taskIndex, 'done', newValue)
     } else return
 })

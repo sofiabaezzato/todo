@@ -202,8 +202,12 @@ main {
 .task-name {
     grid-area: 1 / 2 / 2 / 3;
     font-weight: var(--font-medium);
-    place-self: center start;
-    
+    place-self: center start;   
+}
+
+.completed,
+.completed{
+    text-decoration: line-through;  
 }
 
 .task-description {

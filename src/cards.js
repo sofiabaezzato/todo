@@ -31,19 +31,23 @@ function createCard(task) {
     checkbox.type = 'checkbox'
     checkbox.name = 'done'
     checkbox.id = task.id
-    if (task.done === true) {
-        checkbox.checked = true
-    } else {
-        checkbox.checked = false
-    }
     checkDiv.appendChild(checkbox)
 
     const nameDiv = document.createElement('p')
     nameDiv.classList = 'task-name'
+    nameDiv.id = 'task' + task.id
     nameDiv.textContent = task.name
     const descriptionDiv = document.createElement('p')
     descriptionDiv.classList = 'task-description'
     descriptionDiv.textContent = task.description
+    descriptionDiv.id = 'description' + task.id
+    if (task.done === true) {
+        nameDiv.classList.add('completed')
+        descriptionDiv.classList.add('completed')
+        checkbox.checked = true
+    } else {
+        checkbox.checked = false
+    }
 
     const detailsCont = document.createElement('div')
     detailsCont.classList = 'details-cont'
@@ -78,7 +82,24 @@ function createCard(task) {
 
     const todoGrid = document.querySelector('.todo-grid')
     todoGrid.appendChild(cardDiv)
+    cardDiv.id = 'card' + task.id
+}
+
+function editCardCompleted(id) {
+    const selectedTaskName = document.getElementById(`task${id}`)
+    selectedTaskName.classList.add('completed')
+    const selectedTaskDescr = document.getElementById(`description${id}`)
+    selectedTaskDescr.classList.add('completed')
+    console.log(selectedTaskName)
+}
+
+function editCardUncompleted(id) {
+    const selectedTaskName = document.getElementById(`task${id}`)
+    selectedTaskName.classList.remove('completed')
+    const selectedTaskDescr = document.getElementById(`description${id}`)
+    selectedTaskDescr.classList.remove('completed')
+    console.log(selectedTaskName)
 }
 
 
-export { renderCards }
+export { renderCards, editCardCompleted, editCardUncompleted }
