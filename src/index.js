@@ -2,7 +2,7 @@ import './style.css';
 import { editCardCompleted, editCardUncompleted, renderCards } from './cards'
 import { Task, changeLocalStorageObject, deleteTask, getSelectedTaskIndex, isDone  } from './todos'
 import { populateModal, success } from './modal'
-import { renderProjects } from './projects';
+import { renderProjects, renderProjectsToForm } from './projects';
 
 /* let date = formatRelative(subDays(new Date(), 3), new Date())
 console.log(date) */
@@ -20,9 +20,9 @@ newTodoBtn.addEventListener('click', function() {
 })
 
 dialogPage.addEventListener('input', success)
+
 formBtn.addEventListener('click', function(e) {
     if (e.target.id === '') {
-        console.log('this is a new task')
         submitNewTask()
     } else {
         updateTask(e.target.id)
@@ -35,7 +35,6 @@ document.addEventListener('click', function(e){
         let taskIndex = getSelectedTaskIndex(targetTask.id)
         let newValue;
 
-        console.log('done: ' + isDone(taskIndex))
         if (isDone(taskIndex)) {
             editCardUncompleted(targetTask.id)
             newValue = false
@@ -69,6 +68,7 @@ document.addEventListener('click', function(e){
 
 renderCards()
 renderProjects()
+renderProjectsToForm()
 
 function openModal() {
     document.getElementById('taskForm').reset()

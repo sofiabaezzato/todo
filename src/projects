@@ -6,7 +6,7 @@ const newProjectInput = document.querySelector('[data-new-project-input]')
 
 const LOCAL_STORAGE_PROJECT_KEY = 'task.projects'
 const LOCAL_STORAGE_SELECTED_PROJECT_ID_KEY = 'task.selectedProjectId'
-let projects = JSON.parse(localStorage.getItem(LOCAL_STORAGE_PROJECT_KEY)) || []
+let projects = JSON.parse(localStorage.getItem(LOCAL_STORAGE_PROJECT_KEY)) || [{ id: '23761361782', name: 'Inbox'}]
 let selectedProjectId = localStorage.getItem(LOCAL_STORAGE_SELECTED_PROJECT_ID_KEY)
 
 listContainer.addEventListener('click', e => {
@@ -23,15 +23,15 @@ newProjectForm.addEventListener('submit', e => {
     const project = createProject(projectName)
     newProjectInput.value = null
     projects.push(project)
+    renderProjectsToForm(projects)
     saveAndRenderProjects()
 })
 
 listContainer.addEventListener('click', e => {
-    console.log(e)
     if(e.target.className === 'remove-project-btn') {
-        console.log(e.target)
         let projectId = e.target.dataset.projectId
         projects = projects.filter(project => project.id != projectId)
+        renderProjectsToForm(projects)
         saveAndRenderProjects()
     }
 })
@@ -57,21 +57,35 @@ function renderProjects() {
         listElement.dataset.projectId = project.id
         listElement.classList.add('list-name')
         listElement.textContent = project.name
+        while (selectedProjectId == null) {
+            selectedProjectId = '23761361782'
+        }
         if (project.id === selectedProjectId) {
             listElement.classList.add('active-list')
         }
-        const removeProjectBtn = document.createElement('img')
-        removeProjectBtn.classList.add('remove-project-btn')
-        removeProjectBtn.src = "../src/img/minus-solid.svg"
-        removeProjectBtn.dataset.projectId = project.id
-        listElement.appendChild(removeProjectBtn)
+        if (project.id != '23761361782') {
+            const removeProjectBtn = document.createElement('img')
+            removeProjectBtn.classList.add('remove-project-btn')
+            removeProjectBtn.src = "../src/img/minus-solid.svg"
+            removeProjectBtn.dataset.projectId = project.id
+            listElement.appendChild(removeProjectBtn)
+        }
         listContainer.appendChild(listElement)
+    })
+}
+
+function renderProjectsToForm() {
+    const selectProjectForm = document.getElementById('selectProject')
+    clearElement(selectProjectForm)
+    projects.forEach(project => {
+        const newOption = document.createElement('option')
+        newOption.textContent = project.name
+        newOption.setAttribute('value', `${project.name}`)
+        selectProjectForm.appendChild(newOption)
     })
 }
 
 
 
 
-
-
-export { renderProjects }
+export { renderProjects, renderProjectsToForm }

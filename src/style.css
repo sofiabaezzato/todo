@@ -149,7 +149,6 @@ main {
     display: flex;
     justify-content: space-between;
     margin-bottom: .8rem;
-
 }
 
 .active-list {
@@ -158,7 +157,7 @@ main {
 }
 
 .remove-project-btn {
-    display: none;
+    visibility: hidden;
 }
 
 .remove-project-btn:hover {
@@ -167,7 +166,7 @@ main {
 }
 
 .list-name:hover .remove-project-btn {
-    display: block;
+    visibility: visible;
 }
 
 
