@@ -1,3 +1,6 @@
+import { getActiveProjectFromId } from './projects'
+import { tasks } from './todos'
+
 function success() {
     if(document.getElementById('taskName').value === '') {
         document.querySelector('.save-btn').disabled = true
@@ -9,9 +12,8 @@ function success() {
 }
 
 function populateModal(index) {
-    let savedTasks = JSON.parse(localStorage.getItem("tasks"))
-    if (savedTasks) {
-        let task = savedTasks[index]
+    if (tasks) {
+        let task = tasks[index]
         console.log(task)
         const nameDiv = document.getElementById('taskName')
         nameDiv.value = task.name

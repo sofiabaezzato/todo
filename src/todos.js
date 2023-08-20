@@ -1,3 +1,6 @@
+const LOCAL_STORAGE_TASKS_KEY = 'task.tasks'
+let tasks = JSON.parse(localStorage.getItem(LOCAL_STORAGE_TASKS_KEY)) || []
+
 
 class Task {
     constructor(form) {
@@ -11,19 +14,18 @@ class Task {
     }
 
     add(task) {
-        let tasks = JSON.parse(localStorage.getItem("tasks"));
-        if (tasks === null) {
-            tasks = []
-        }
         tasks.push(task);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
+        saveTasks()
     }
 }
 
+function saveTasks() {
+    localStorage.setItem(LOCAL_STORAGE_TASKS_KEY, JSON.stringify(tasks))
+}
+
 function isDone(index) {
-    let savedTasks = JSON.parse(localStorage.getItem("tasks"))
-    if (savedTasks) {
-        let task = savedTasks[index]
+    if (tasks) {
+        let task = tasks[index]
         return task['done']
     } else {
         console.log('No tasks saved')
@@ -31,7 +33,6 @@ function isDone(index) {
 }
 
 function getSelectedTaskIndex(selectedId) {
-    let tasks = JSON.parse(localStorage.getItem("tasks"))
     let selectedTaskIndex = tasks.findIndex(task => task.id == selectedId)
     if (selectedTaskIndex != -1) {
         console.log(selectedTaskIndex)
@@ -42,11 +43,10 @@ function getSelectedTaskIndex(selectedId) {
 }
 
 function changeLocalStorageObject(index, key, newValue) {
-    let savedTasks = JSON.parse(localStorage.getItem("tasks"))
-    if (savedTasks) {
-        let task = savedTasks[index]
+    if (tasks) {
+        let task = tasks[index]
         task[key] = newValue
-        localStorage.setItem("tasks", JSON.stringify(savedTasks))
+        saveTasks()
 
     } else {
         console.log('No tasks saved')
@@ -54,10 +54,9 @@ function changeLocalStorageObject(index, key, newValue) {
 }
 
 function deleteTask(index) {
-    let savedTasks = JSON.parse(localStorage.getItem("tasks"))
-    if (savedTasks) {
-        savedTasks.splice(index, 1)
-        localStorage.setItem("tasks", JSON.stringify(savedTasks))
+    if (tasks) {
+        tasks.splice(index, 1)
+        saveTasks()
 
     } else {
         console.log('No tasks saved')
@@ -67,4 +66,4 @@ function deleteTask(index) {
 
 
 
-export { Task, isDone, getSelectedTaskIndex, changeLocalStorageObject, deleteTask }
+export { Task, isDone, getSelectedTaskIndex, changeLocalStorageObject, deleteTask, saveTasks, tasks }

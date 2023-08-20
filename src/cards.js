@@ -1,10 +1,20 @@
 import { format, parseISO } from 'date-fns'
+import { getActiveProjectFromId } from './projects'
+import { tasks } from './todos' 
+
 
 function renderCards() {
-    let tasks = JSON.parse(localStorage.getItem('tasks')) ? JSON.parse(localStorage.getItem('tasks')) : []
-    const todoContainer = document.querySelector('.todo-grid') 
+    const todoContainer = document.querySelector('.todo-grid')
+    let project = getActiveProjectFromId()
+    console.log(project.name)
     clearElement(todoContainer)
-    tasks.forEach(task => createCard(task))
+    const projectTitleDiv = document.querySelector('.title')
+    projectTitleDiv.textContent = project.name
+    let projectTasks = tasks.filter(task => task.project === project.name)
+    if(projectTasks != '') {
+        console.log('tasks found: ' + JSON.stringify(projectTasks))
+        projectTasks.forEach(task => createCard(task))
+    }
 }
 
 function createCard(task) {
