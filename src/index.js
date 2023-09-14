@@ -1,16 +1,23 @@
 import './style.css';
-import { editCardCompleted, editCardUncompleted, renderCards } from './cards'
-import { Task, changeLocalStorageObject, deleteTask, getSelectedTaskIndex, isDone, saveTasks  } from './todos'
+import { editCardCompleted, editCardUncompleted, renderCardsMode, renderCardsProject, setCurrentMode } from './cards'
+import { Task, addTask, changeLocalStorageObject, deleteTask, getSelectedTaskIndex, isDone, saveTasks  } from './todos'
 import { populateModal, success } from './modal'
 import { getProjectFromName, saveAndRenderProjects, renderProjectsToForm, getActiveProjectFromId, setActiveProject } from './projects.js';
 
 
-/* let date = formatRelative(subDays(new Date(), 3), new Date())
-console.log(date) */
-
 const newTodoBtn = document.getElementById('newTodoBtn')
 const formBtn = document.getElementById('newFormBtn')
 const dialogPage = document.querySelector('.dialog')
+const todayBtn = document.getElementById('todayBtn')
+const thisWeekBtn = document.getElementById('thisWeekBtn')
+const allTasksBtn = document.getElementById('allTasksBtn')
+const modeBtns = document.querySelector('.date-menu')
+
+todayBtn.onclick = () => setCurrentMode('day')
+thisWeekBtn.onclick = () => setCurrentMode('week')
+allTasksBtn.onclick = () => setCurrentMode('all')
+modeBtns.addEventListener('click', e => btnSelected(e))
+
 
 newTodoBtn.addEventListener('click', function() {
     const form = document.getElementById('taskForm')
@@ -28,11 +35,11 @@ dialogPage.addEventListener('input', success)
 formBtn.addEventListener('click', function(e) {
     if (e.target.id === '') {
         submitNewTask()
-        renderCards()
-  } else {
+    } else {
         updateTask(e.target.id)
-        renderCards()
     }
+    renderCards()
+
 })
 
 document.addEventListener('click', function(e){
@@ -74,7 +81,7 @@ document.addEventListener('click', function(e){
 
 saveAndRenderProjects()
 renderProjectsToForm()
-renderCards()
+renderCardsProject()
 
 function openModal() {
     dialogPage.showModal()
@@ -85,7 +92,7 @@ function submitNewTask() {
     let newTask = new Task(Object.fromEntries(new FormData(form).entries()))
     let project = getProjectFromName(newTask['project'])
     setActiveProject(project.id)
-    newTask.add(newTask)
+    addTask(newTask)
 }
 
 function updateTask(taskId) {
@@ -101,6 +108,18 @@ function updateTask(taskId) {
     setActiveProject(project.id)
     saveTasks()
 }
+
+let prevBtn = null
+const btnSelected = (e) => {
+    if (e.target.nodeName === 'LI') {
+        e.target.classList.add('active-date')
+        if (prevBtn !== null) {
+            prevBtn.classList.remove('active-date')
+        }
+        prevBtn = e.target
+    }
+}
+
 
 
 

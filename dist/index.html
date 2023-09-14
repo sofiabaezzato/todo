@@ -13,15 +13,20 @@
     </header>
     <main>
         <section class="navbar-container">
-            <div class="date-menu">
+            <div >
+                <ul class="date-menu">
+                    <li id="todayBtn" class="date-item"><i class="fa-solid fa-calendar-day"></i>Today</li>
+                    <li id="thisWeekBtn" class="date-item"><i class="fa-solid fa-calendar-week"></i>This Week</li>
+                    <li id="allTasksBtn" class="date-item"><i class="fa-solid fa-list-check"></i>All Tasks</li>
 
+                </ul>
             </div>
             <h3>Projects</h3>
             <ul class="project-menu">
                 
             </ul>
-            <form action="" data-new-project-form>
-                <input 
+            <form action="" data-new-project-form class="project-form">
+                <input
                     type="text"
                     class="new-project"
                     data-new-project-input
@@ -37,7 +42,7 @@
                     <p class="task-description">This is a description</p>
                 </div> -->
             </section>
-            <button type="button" id="newTodoBtn">Add task</button>
+            <button type="button" id="newTodoBtn"><i class="fa-solid fa-plus"></i>Add task</button>
         </section>
 
 
@@ -48,30 +53,26 @@
 
         <dialog class="dialog">
             <div class="project-title">
-                <a href="#" id="projectTitle">Inbox</a>
+                <h3>New task</h3>
                 <div class="dialog-controls">
                     <button id="closeBtn" form="taskForm" value="cancel" formmethod="dialog"><i class="fa-solid fa-xmark" ></i></button>
                 </div>
             </div>
-            <div class="dialog-main">
-                <form id="taskForm" method="dialog" name="taskForm">
-                    <div class="left-container">
-                        <input name="name" type="text" placeholder="Task name" id="taskName" value="">
-                        <textarea name="description" placeholder="Description" id="taskDescription"></textarea>
-                    </div>
-                    <div class="right-container">
-                        <select name="project" id="selectProject"></select>
-                        <select name="priority" id="selectPriority">
-                            <option value="urgent">Urgent</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
-                        </select>
-                        <input type="date" name="date" id="datePicker">
-
-                    </div>
-                    
-                </form>
-            </div>
+            
+            <form id="taskForm" method="dialog" name="taskForm">
+                <input name="name" type="text" placeholder="Task name" id="taskName" value="">
+                <textarea name="description" placeholder="Description" id="taskDescription"></textarea>
+                <select name="project" id="selectProject"></select>
+                <div class="form-column">
+                    <select name="priority" id="selectPriority">
+                        <option value="Urgent">Urgent</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                    <input type="date" name="date" id="datePicker">
+                </div>
+        
+            </form>
             <button class="save-btn" id="newFormBtn" value="default" form="taskForm" disabled>Save</button>
             
             <p id="dialogMessage"></p>

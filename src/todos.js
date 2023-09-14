@@ -12,11 +12,11 @@ class Task {
         this.done = false;
         this.id = new Date().valueOf();
     }
+}
 
-    add(task) {
-        tasks.push(task);
-        saveTasks()
-    }
+function addTask(task) {
+    tasks.push(task);
+    saveTasks()
 }
 
 function saveTasks() {
@@ -63,7 +63,12 @@ function deleteTask(index) {
     }
 }
 
+function removeTasksProject(projectName) {
+    tasks = tasks.filter(task => task.project != projectName)
+    saveTasks()
+}
 
 
 
-export { Task, isDone, getSelectedTaskIndex, changeLocalStorageObject, deleteTask, saveTasks, tasks }
+
+export { Task, tasks, addTask, isDone, getSelectedTaskIndex, changeLocalStorageObject, deleteTask, saveTasks, removeTasksProject }

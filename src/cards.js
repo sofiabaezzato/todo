@@ -1,20 +1,50 @@
-import { format, parseISO } from 'date-fns'
+import { format, parseISO, isToday, isThisWeek } from 'date-fns'
 import { getActiveProjectFromId } from './projects'
 import { tasks } from './todos' 
 
+const LOCAL_STORAGE_SELECTED_MODE_KEY = 'task.selectedMode'
+let currentMode = JSON.parse(localStorage.getItem(LOCAL_STORAGE_SELECTED_MODE_KEY)) || 'all'
 
-function renderCards() {
+function renderCardsMode() {
     const todoContainer = document.querySelector('.todo-grid')
-    let project = getActiveProjectFromId()
-    console.log(project.name)
-    clearElement(todoContainer)
     const projectTitleDiv = document.querySelector('.title')
-    projectTitleDiv.textContent = project.name
-    let projectTasks = tasks.filter(task => task.project === project.name)
-    if(projectTasks != '') {
-        console.log('tasks found: ' + JSON.stringify(projectTasks))
+    
+    clearElement(todoContainer)
+    
+    let currentTasks = filterTasksForMode(currentMode)
+    let modeName
+    if (currentMode === 'day') modeName = 'Today'
+    else if (currentMode == 'week') modeName = 'This Week'
+    else modeName = 'All Tasks'
+
+    if (currentTasks != null) {
+        projectTitleDiv.textContent = modeName
+        currentTasks.forEach(task => createCard(task))
+    }
+}
+
+function renderCardsProject() {
+    let project = getActiveProjectFromId()
+    let projectTasks
+    const todoContainer = document.querySelector('.todo-grid')
+    const projectTitleDiv = document.querySelector('.title')
+
+    clearElement(todoContainer)
+
+    if (project === null) console.log('no project selected')
+    else {
+        projectTasks = tasks.filter(task => task.project === project.name)
+    }
+    if (projectTasks != null) {
+        projectTitleDiv.textContent = project.name
         projectTasks.forEach(task => createCard(task))
     }
+}
+
+function filterTasksForMode(mode) {
+    if (mode === 'day') return tasks.filter(task => isToday(parseISO(task.dueDate)))
+    else if (mode === 'week') return tasks.filter(task => isThisWeek(parseISO(task.dueDate)))
+    else return tasks
 }
 
 function createCard(task) {
@@ -95,6 +125,18 @@ function createCard(task) {
     cardDiv.id = 'card' + task.id
 }
 
+function setCurrentMode(mode) {
+    if (mode === 'day') currentMode = 'day'
+    else if (mode === 'week') currentMode = 'week'
+    else currentMode = 'all'
+    saveCurrentMode()
+    renderCardsMode()
+}
+
+function saveCurrentMode() {
+    localStorage.setItem(LOCAL_STORAGE_SELECTED_MODE_KEY, JSON.stringify(currentMode))
+}
+
 function editCardCompleted(id) {
     const selectedTaskName = document.getElementById(`task${id}`)
     selectedTaskName.classList.add('completed')
@@ -117,4 +159,4 @@ function clearElement(element) {
     }
 }
 
-export { renderCards, editCardCompleted, editCardUncompleted, clearElement}
+export { renderCardsMode, renderCardsProject, editCardCompleted, editCardUncompleted, clearElement, setCurrentMode }
