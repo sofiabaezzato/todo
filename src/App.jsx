@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NewTodoForm } from './NewTodoForm'
 import './style.css'
 import { TodoList } from './TodoList'
@@ -6,7 +6,15 @@ import { TodoList } from './TodoList'
 
 function App() {
   
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState(() => {
+    const localValue = localStorage.getItem('ITEMS')
+    if (localValue == null) return []
+    return JSON.parse(localValue)
+  })
+
+  useEffect(() => {
+    localStorage.setItem('ITEMS', JSON.stringify(todos))
+  }, [todos])
 
   function addTodo(title) {
     setTodos((currentTodos) => {
@@ -38,11 +46,11 @@ function App() {
   }
 
   return (
-  <>
+  <main>
     <NewTodoForm onSubmit={addTodo}/>
     <h1 className="title">Todos</h1>
     <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo}/>
-  </>
+  </main>
   
 
   )

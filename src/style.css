@@ -91,13 +91,7 @@ header {
     padding: 1rem;
 }
 
-main {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    display: flex;
-    position: absolute;
-}
+
 
 .navbar-container {
     position: sticky;
@@ -168,20 +162,7 @@ main {
     gap: 6px;
 }
 
-.delete-btn {
-    /* background: url('./img/trash-solid.svg') no-repeat center center; */
-    background-color: inherit;
 
-    border: none;
-
-    border-radius: 4px;
-}
-
-
-.delete-btn:hover,
-.edit-btn:hover {
-    -webkit-filter: brightness(80%);
-}
 
 .edit-btn {
     background: url('./img/pen-to-square-solid.svg') no-repeat center center;
@@ -282,17 +263,6 @@ main {
 
 
 
-/* input[type='checkbox']:checked {
-    background-color: var(--first-color);
-    border: 1px solid var(--first-color);
-    border-radius: 50%;
-    transition-delay: 0s;
-    clip-path: polygon(28% 38%, 41% 53%, 75% 24%, 86% 38%, 40% 78%, 15% 50%);
-} */
-
-
-
-
 
 input[type='text'],
 input[type='date'],
@@ -358,28 +328,45 @@ textarea:focus {
 
 
 
-
-
+main {
+    max-width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
 
 .new-task-form {
-    max-width: 300px;
+    width: 100%;
 }
 
 .form-row {
     display: flex;
     flex-direction: column;
-
-
 }
 
 label {
     font-size: var(--normal-font-size);
     font-weight: var(--font-medium);
+    align-items: center;
+    display: flex;
+    margin-right: .5rem;
+    /* word-break: break-all; */
+    
+}
+
+ul {
+    margin-top: 1rem;
+    width: 100%;
+    display: block;
+
 }
 
 li {
     display: flex;
+    margin-top: .5rem;
     align-items: center;
+    justify-content: space-between;
+
 }
 
 input[type='checkbox'] {
@@ -395,7 +382,24 @@ input[type='checkbox'] {
 }
 
 input[type='checkbox']:checked {
-    background: var(--first-color) url(./img/check-solid.svg) no-repeat center center;
+    background: var(--first-color) url(./assets/check-solid.svg) no-repeat center center;
     background-size: 70%;
     border: none;
+}
+
+.delete-btn {
+    background: url('./assets/trash-solid.svg') no-repeat center center;
+    background-color: inherit;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 4px;
+    visibility: hidden;
+
+
+}
+
+li:hover .delete-btn{
+    visibility: visible;
+    -webkit-filter: brightness(80%);
 }
